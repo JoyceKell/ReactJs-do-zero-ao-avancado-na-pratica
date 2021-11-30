@@ -6,9 +6,19 @@
 </head>
 
 <body>
-  <h1>ola mundo</h1>
-  <button onclick="window.location.href='contato.html';">Ir ao site contato</button>
-  <button onclick="window.location.href= window.location.href">Atualizar a página</button>
+  <div id="area">
+    bem vindo
+  </div>
+  <br><br>
+  <button onclick="document.getElementById('area').innerHTML ='Bem vindo ' + prompt('qual o seu nome?');">Entrar</button>
+
+  <!--------------------------->
+  <br><br>
+  <div id="area">
+    bem vindo
+  </div>
+  <br><br>
+  <button onclick="this.innerHTML = prompt('qual o nome do botao');">Qual meu nome?</button>
 </body>
 
 </html>
