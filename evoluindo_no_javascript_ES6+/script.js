@@ -1,8 +1,13 @@
-function adicionar(...numeros){
-  let total = numeros.reduce((total, proximo)=>{
-    return total+proximo;
-  })
-  console.log(total);
-}
+//includes
+//endswith
+//startswith
 
-adicionar(1,2,3,4,5)
+let nomes = ['matheus', "lucas", "joao"];
+
+console.log(nomes.includes('lucas'));
+
+let nome = "Matheus";
+
+console.log(nome.endsWith('us'))
+console.log(nome.startsWith('Mat'))
+
