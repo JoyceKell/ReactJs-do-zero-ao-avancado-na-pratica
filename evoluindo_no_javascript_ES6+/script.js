@@ -1,13 +1,8 @@
-//while
-
-//x = 0
-//while(x<10){
-// document.write("</br> O valor do x e: " + x);
-// x++;
-//}
-
-//for
-
-for(a = 0; a<10; a++){
-  document.write("</br> O valor do a e: " + a);
+function acao(){
+  document.write("executando...</br>");
 }
+
+//executa de tempo em tempo
+var timer = setInterval(acao, 1000);
+
+//setTimeout(acao,3000);
