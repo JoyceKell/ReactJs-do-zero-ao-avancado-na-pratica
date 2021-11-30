@@ -1,8 +1,9 @@
-function acao(){
-  document.write("executando...</br>");
+const pessoa = { 
+  nome: "joyce",
+  sobrenome: "kelly",
+  idade: 21
 }
 
-//executa de tempo em tempo
-var timer = setInterval(acao, 1000);
+let {nome, sobrenome, idade} = pessoa
 
-//setTimeout(acao,3000);
+console.log(nome, sobrenome, idade)
