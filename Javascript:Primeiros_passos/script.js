@@ -1,10 +1,18 @@
-//este e meu nome
-var nome = "Joyce";
+function entrar(){
+  var area = document.getElementById('area');
+  var texto = prompt('Digite seu nome');
 
-/*
-esse
-é
-um
-bloco
-de codigo
-*/
+  if(texto=='' || texto == null){
+    alert('digite seu nome novamente')
+    area.innerHTML = 'bem vindo ...';
+  }
+  else{
+    area.innerHTML = 'bem vindo ' + texto;
+  }
+}
+
+function entrar2(nome, idade){
+  var area = document.getElementById('area2');
+  var texto = prompt('Digite seu sobrenome');
+  area.innerHTML = nome + " " + texto + " idade: " + idade;
+}
