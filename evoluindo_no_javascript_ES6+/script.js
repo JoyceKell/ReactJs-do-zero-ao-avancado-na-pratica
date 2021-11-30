@@ -1,9 +1,3 @@
-const pessoa = { 
-  nome: "joyce",
-  sobrenome: "kelly",
-  idade: 21
-}
-
-let {nome, sobrenome, idade} = pessoa
-
-console.log(nome, sobrenome, idade)
+let primeiros = [1,2,3];
+let numeros = [...primeiros,4,5,6];
+console.log(numeros)
