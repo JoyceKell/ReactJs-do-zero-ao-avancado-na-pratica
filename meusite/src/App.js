@@ -1,43 +1,42 @@
 import React, {Component} from 'react';
+import biscoito from './assets/biscoito.png'
+import './style.css'
 
 class App extends Component{
 
   constructor(props){
     super(props);
     this.state = {
-     form:{
-       nome: "", email: "", senha:""
-     }
+      textoFrase:''
     };
-
-    this.mudaDados = this.mudaDados.bind(this);
+    this.frases = ["Siga os bons e aprendam com eles", "O riso é a menor distância entre duas pessoas",
+  "Deixe de lado as preocupações e seja feliz", "Acredite em milagres, mas não dependa deles", "a maior barreira para o sucesso é o medo"]
+    this.quebraBiscoito = this.quebraBiscoito.bind(this);
   }
 
- 
-
-  mudaDados(e){
-    let form = this.state.form;
-    form[e.target.name] = e.target.value;
-    this.setState({form: form});
+  quebraBiscoito(){
+    let state = this.state;
+    let numeroAleatorio = Math.floor(Math.random() * this.frases.length); 
+    state.textoFrase = this.frases[numeroAleatorio];
+    this.setState(state);
   }
 
   render(){
     return(
-      <div> 
-       <h1>Titulo</h1>
-       <form>
-         <p>nome</p>
-         <input type="text" name='nome' value={this.state.form.nome}
-              onChange={this.mudaDados} />
-         <p>email</p>
-         <input type="email" name='email' value={this.state.form.email}
-              onChange={this.mudaDados} />
-         <p>senha</p>
-         <input type="password" name='value' value={this.state.form.senha}
-              onChange={this.mudaDados} />
-         <button type="submit">Cadastrar</button>
-       </form>
-       <h3>{this.state.form.nome}</h3>
+      <div className="container"> 
+        <img src={biscoito} className="img"/>
+        <Botao acaoBtn={this.quebraBiscoito}/>
+        <h3 className="textoFrase">{this.state.textoFrase}</h3>
+      </div>
+    )
+  }
+}
+
+class Botao extends Component{
+  render(){
+    return(
+      <div>
+        <button onClick={this.props.acaoBtn}>Abrir Biscoito</button>
       </div>
     )
   }
