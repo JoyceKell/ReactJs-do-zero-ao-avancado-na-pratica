@@ -5,40 +5,39 @@ class App extends Component{
   constructor(props){
     super(props);
     this.state = {
-      nome: '',
-      email: '',
-      senha: '',
+     form:{
+       nome: "", email: "", senha:""
+     }
     };
-   this.cadastrar = this.cadastrar.bind(this);
+
+    this.mudaDados = this.mudaDados.bind(this);
   }
 
-  cadastrar(event){
-    const {nome,email,senha} = this.state
+ 
 
-    if(nome!='' && email!= '' && senha!= ''){
-      alert(`nome: ${nome} \nemail:${email} \npassword:${senha}`)
-      event.preventDefault();
-    }else{
-      alert('campos vazios');
-    }
+  mudaDados(e){
+    let form = this.state.form;
+    form[e.target.name] = e.target.value;
+    this.setState({form: form});
   }
 
   render(){
     return(
       <div> 
        <h1>Titulo</h1>
-       <form onSubmit={this.cadastrar}>
+       <form>
          <p>nome</p>
-         <input type="text" value={this.state.nome}
-              onChange={(e)=>this.setState({nome:e.target.value})} />
+         <input type="text" name='nome' value={this.state.form.nome}
+              onChange={this.mudaDados} />
          <p>email</p>
-         <input type="email" value={this.state.email}
-              onChange={(e)=>this.setState({email:e.target.value})} />
+         <input type="email" name='email' value={this.state.form.email}
+              onChange={this.mudaDados} />
          <p>senha</p>
-         <input type="password" value={this.state.senha}
-              onChange={(e)=>this.setState({senha:e.target.value})} />
+         <input type="password" name='value' value={this.state.form.senha}
+              onChange={this.mudaDados} />
          <button type="submit">Cadastrar</button>
        </form>
+       <h3>{this.state.form.nome}</h3>
       </div>
     )
   }
