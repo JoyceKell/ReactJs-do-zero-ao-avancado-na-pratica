@@ -5,46 +5,40 @@ class App extends Component{
   constructor(props){
     super(props);
     this.state = {
+      nome: '',
       email: '',
       senha: '',
-      sexo: 'masculino'
     };
-    this.trocaEmail = this.trocaEmail.bind(this);
-    this.trocarSenha = this.trocarSenha.bind(this);
-    this.trocarSexo = this.trocarSexo.bind(this);
+   this.cadastrar = this.cadastrar.bind(this);
   }
 
-  trocaEmail(e){
-    let valorDigitado = e.target.value;
-    this.setState({email:valorDigitado});
-  }
+  cadastrar(event){
+    const {nome,email,senha} = this.state
 
-  trocarSenha(e){
-    let valorDigitado = e.target.value;
-    this.setState({senha: valorDigitado});
-  }
-
-  trocarSexo(e){
-    let valorDigitado = e.target.value;
-    this.setState({sexo: valorDigitado})
+    if(nome!='' && email!= '' && senha!= ''){
+      alert(`nome: ${nome} \nemail:${email} \npassword:${senha}`)
+      event.preventDefault();
+    }else{
+      alert('campos vazios');
+    }
   }
 
   render(){
     return(
       <div> 
-        <h2>Login</h2>
-        email:
-        <input type="email" name="email" value={this.state.email}
-        onChange={this.trocaEmail}/>
-        senha:
-        <input type="password" name="senha" value={this.state.senha} onChange={this.trocarSenha}/>
-        sexo:
-
-        <select name="sexo" value={this.state.sexo} onChange={this.trocarSexo}>
-          <option value="masculino">Masculino</option>
-          <option value="feminino">Feminino</option>
-        </select>
-        {this.state.sexo}
+       <h1>Titulo</h1>
+       <form onSubmit={this.cadastrar}>
+         <p>nome</p>
+         <input type="text" value={this.state.nome}
+              onChange={(e)=>this.setState({nome:e.target.value})} />
+         <p>email</p>
+         <input type="email" value={this.state.email}
+              onChange={(e)=>this.setState({email:e.target.value})} />
+         <p>senha</p>
+         <input type="password" value={this.state.senha}
+              onChange={(e)=>this.setState({senha:e.target.value})} />
+         <button type="submit">Cadastrar</button>
+       </form>
       </div>
     )
   }
