@@ -18,7 +18,7 @@ function App() {
   },[])
 
   useEffect(()=>{
-    localStorage.setItem('tarefas', JSON.stringify(tarefas));
+    localStorage.setItem('tarefas', JSON.stringigfy(tarefas));
   }, [tarefas])
 
   const totalTarefas = useMemo(()=>tarefas.length, tarefas)
