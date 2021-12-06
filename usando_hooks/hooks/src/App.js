@@ -1,14 +1,14 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, {useState, useEffect, useMemo, useCallback} from 'react';
 
 function App() {
 
   const [tarefas,setTarefas] = useState(['Pagar a conta de luz', 'estudar react']);
   const [input,setInput] = useState('');
 
-  function handleAdd(){
+  const handleAdd = useCallback(()=>{
     setTarefas([...tarefas, input]);
     setInput('');
-  }
+  }, [input,tarefas])
 
   useEffect(()=>{
     const tarefasStorage = localStorage.getItem('tarefas');
