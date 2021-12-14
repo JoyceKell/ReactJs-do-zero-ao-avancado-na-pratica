@@ -16,6 +16,50 @@ export default function Profile(){
   const [avatar,setAvatar] = useState(user && user.avatarUrl);
   const [imageAvatar, setImageAvatar] = useState(null);
 
+  async function handleUpload(){
+    const currentUid = user.uid;
+    const uploadTask = await firebase.storage().ref(`images/${currentUid}/${imageAvatar.name}`)
+    .put(imageAvatar)
+    .then(async ()=>{
+      console.log('foto enviada com sucesso');
+
+      await firebase.storage().ref(`images/${currentUid}`)
+      .child(imageAvatar.name).getDownloadURL()
+      .then(async (url)=>{
+        let UrlFoto = url;
+
+        await firebase.firestore().collection('users').doc(user.uid).update({
+          avatarUrl: UrlFoto,
+          nome: nome,
+        })
+        .then(()=>{
+          let data = {
+            ...user,
+            avatarUrl: UrlFoto,
+            nome: nome,
+          };
+
+          setUser(data);
+          storageUser(data);
+        })
+      })
+    })
+  }
+
+  function handleFile(e){
+    if(e.target.files[0]){
+      const image = e.target.files[0];
+      if(image.type === 'image/jpeg' || image.type === 'image/png'){
+        setImageAvatar(image);
+        setAvatar(URL.createObjectURL(e.target.files[0]));
+      }else{
+        alert('envie uma imagem do tipo png ou jpeg');
+        setImageAvatar(null);
+        return null;
+      }
+    }
+  }
+
   async function handleSave(e){
     e.preventDefault();
 
@@ -34,6 +78,10 @@ export default function Profile(){
       })
     }
 
+    else if (nome!=='' && imageAvatar!==null){
+      handleUpload();
+    }
+
   }
 
   return(
@@ -47,10 +95,10 @@ export default function Profile(){
       <form className="form-profile" onSubmit={handleSave}>
           <label className="label-avatar">
             <span><FiUpload color="#fff" size={25}/></span>
-            <input type="file" accept="image/*"/> <br />
+            <input type="file" accept="image/*" onChange={handleFile} /> <br />
             {avatar === null ? 
-            <img src={imgAvatar} width = "250" height = "250" alt = "foto de perfil do usuario"/> : 
-            <img src={avatar} width = "250" height = "250" alt = "foto de perfil do usuario"/>}
+            <img src={imgAvatar} className="form-profile" width = "250" height = "250" alt = "foto de perfil do usuario"/> : 
+            <img src={avatar} className="form-profile" width = "250" height = "250" alt = "foto de perfil do usuario"/>}
           </label>
 
           <label>Nome</label>
