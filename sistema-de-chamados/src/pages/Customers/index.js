@@ -3,6 +3,8 @@ import Title from '../../components/Title';
 import Header from '../../components/Header';
 import { FiUser } from 'react-icons/fi';
 import { useState } from 'react';
+import firebase from '../../services/firebaseConnection';
+import { toast } from 'react-toastify';
 
 export default function Customers(){
 
@@ -10,8 +12,25 @@ export default function Customers(){
   const [cnpj, setCnpj] = useState('');
   const [endereco, setEndereco] = useState('');
 
-  function handleAdd(e){
+  async function handleAdd(e){
     e.preventDefault();
+    if(nomeFantasia!=='' && cnpj!== '' && endereco !== ''){
+      await firebase.firestore().collection('customers').add({
+        nomeFantasia: nomeFantasia,
+        cnpj: cnpj,
+        endereco: endereco
+      }).then(()=>{
+        setNomeFantasia('');
+        setCnpj('');
+        setEndereco('');
+        toast.info('empresa cadastrada com sucesso');
+      }).catch((error)=>{
+        toast.error('erro ao cadastrar essa empresa');
+      })  
+    }
+    else{
+      toast.error('preencha todos os campos!');
+    }
   }
 
   return(
