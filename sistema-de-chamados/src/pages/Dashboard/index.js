@@ -7,6 +7,7 @@ import { FiMessageSquare, FiPlus, FiSearch, FiEdit2} from "react-icons/fi";
 import { Link } from "react-router-dom";
 import firebase from '../../services/firebaseConnection';
 import { format } from "date-fns";
+import Modal from "../../components/Modal";
 
 const listRef = firebase.firestore().collection('chamados').orderBy('created', 'desc');
 
@@ -16,6 +17,8 @@ export default function Dashboard(){
   const [loadingMore, setLoadingMore] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
   const [lastDocs, setLastDocs] = useState();
+  const [showPostModal, setShowPostModal] = useState(false);
+  const [detail, setDetail] = useState();
   const {signOut} = useContext(AuthContext);
 
   useEffect(()=>{
@@ -36,6 +39,12 @@ export default function Dashboard(){
       setLoadingMore(false);
     })
     setLoading(false);
+  }
+
+  function togglePostModal(item){
+    console.log(item);
+    setShowPostModal(!showPostModal);
+    setDetail(item);
   }
 
   async function handleMore(){
@@ -125,8 +134,8 @@ export default function Dashboard(){
                 <td data-label="Status"><span className="badge" style={{backgroundColor: item.status === 'aberto' ? '#5cb85c' : '#999'}}>{item.status}</span></td>
                 <td data-label="Cadastrado">{item.createdFormated}</td>
                 <td data-label="#">
-                  <button className="action" style={{backgroundColor: '#3583f6'}}><FiSearch color="#fff" size={17}/></button>
-                  <button className="action" style={{backgroundColor: '#f6a935'}}><FiEdit2 color="#fff" size={17}/></button>
+                  <button className="action" style={{backgroundColor: '#3583f6'}}><FiSearch color="#fff" size={17} onClick={()=> togglePostModal(item)}/></button>
+                  <Link to={`/new/${item.id}`} className="action" style={{backgroundColor: '#f6a935'}}><FiEdit2 color="#fff" size={17}/></Link>
                 </td>
               </tr>
              )
@@ -141,6 +150,9 @@ export default function Dashboard(){
 
       
       </div>
+      {showPostModal && (
+        <Modal conteudo={detail} close={togglePostModal}/>
+      )}
     </div>
   )
 }
