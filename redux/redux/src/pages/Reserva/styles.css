@@ -1,0 +1,32 @@
+.title{
+  color: #fff;
+}
+
+.reserva{
+  padding: 20px;
+  margin-bottom: 10px;
+  background: #fff;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reserva img{
+  height: 100px;
+}
+
+.reserva button{
+  border: 0;
+  background: #fff;
+}
+
+footer button{
+  border: 0;
+  display: flex;
+  padding: 10px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  margin-top: 10px;
+  font-weight: bold;
+}
