@@ -23,11 +23,11 @@
 }
 
 .reserva strong{
-  color: #fff;
+  color: #000;
   display: block;
 }
 
 .reserva span{
-  color: #ddd;
+  color: #000;
   font-size: 15px;
 }
